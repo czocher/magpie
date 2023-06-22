@@ -1,0 +1,20 @@
+[package]
+authors = ['Paweł Jan Czochański <pawel@czochanski.pl>']
+name = "desktop-notifications"
+description = "Create desktop notifications"
+version = "0.1.0"
+edition = "2021"
+readme = "README.md"
+repository = "https://github.com/czocher/magpie"
+license = "MIT"
+keywords = ["gui", "notifications"]
+
+[dependencies]
+derive_more = "0.99.17"
+futures = "0.3.28"
+strum = "0.25.0"
+strum_macros = "0.25.0"
+tokio = { version = "1.28.2", features = ["full"] }
+tokio-stream = { version = "0.1.14", features = ["full"] }
+url = "2.4.0"
+zbus = { version = "3.13.1", features = ["tokio"] }

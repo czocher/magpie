@@ -1,0 +1,7 @@
+[workspace]
+members = ["magpie", "desktop-notifications"]
+
+[profile.release]
+strip = true
+lto = true
+codegen-units = 1
