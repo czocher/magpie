@@ -7,7 +7,7 @@ mod image_path;
 mod notification_close_reason;
 mod notification_id;
 mod server_information;
-pub mod sound_context;
+pub mod sound_name;
 mod timeout;
 mod urgency;
 

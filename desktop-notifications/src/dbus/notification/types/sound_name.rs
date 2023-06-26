@@ -1,9 +1,10 @@
 use strum_macros::{Display, EnumString};
 
 #[derive(Debug, Clone, Default)]
-pub enum SoundContext {
+pub enum SoundName {
     #[default]
     None,
+    Other(String),
     Alert(Alert),
     Notification(Notification),
     Action(Action),
@@ -11,15 +12,22 @@ pub enum SoundContext {
     Game(Game),
 }
 
-impl ToString for SoundContext {
+impl From<&str> for SoundName {
+    fn from(value: &str) -> Self {
+        SoundName::Other(value.to_string())
+    }
+}
+
+impl ToString for SoundName {
     fn to_string(&self) -> String {
         match self {
-            SoundContext::None => "".to_string(),
-            SoundContext::Alert(alert) => alert.to_string(),
-            SoundContext::Notification(notification) => notification.to_string(),
-            SoundContext::Action(action) => action.to_string(),
-            SoundContext::InputFeedback(input_feedback) => input_feedback.to_string(),
-            SoundContext::Game(game) => game.to_string(),
+            SoundName::None => "".to_string(),
+            SoundName::Other(value) => value.to_string(),
+            SoundName::Alert(alert) => alert.to_string(),
+            SoundName::Notification(notification) => notification.to_string(),
+            SoundName::Action(action) => action.to_string(),
+            SoundName::InputFeedback(input_feedback) => input_feedback.to_string(),
+            SoundName::Game(game) => game.to_string(),
         }
     }
 }

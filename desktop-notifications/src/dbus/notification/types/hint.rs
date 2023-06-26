@@ -1,4 +1,4 @@
-use derive_more::Deref;
+use derive_more::{Deref, DerefMut};
 use strum_macros::Display;
 
 use zbus::{
@@ -7,7 +7,7 @@ use zbus::{
 };
 
 use super::{
-    category::Category, image::Image, image_path::ImagePath, sound_context::SoundContext,
+    category::Category, image::Image, image_path::ImagePath, sound_name::SoundName,
     urgency::Urgency,
 };
 
@@ -21,7 +21,7 @@ pub enum Hint {
     ImagePath(ImagePath),
     Resident(bool),
     SoundFile(String),
-    SoundName(SoundContext),
+    SoundName(SoundName),
     SuppressSound(bool),
     Transient(bool),
     X(i32),
@@ -30,7 +30,7 @@ pub enum Hint {
     Other(String, OwnedValue),
 }
 
-#[derive(Default, Deref)]
+#[derive(Default, Deref, DerefMut, Clone)]
 pub struct Hints(Vec<Hint>);
 
 impl Serialize for Hints {
@@ -74,5 +74,11 @@ impl Type for Hints {
 impl From<Vec<Hint>> for Hints {
     fn from(value: Vec<Hint>) -> Self {
         Self(value)
+    }
+}
+
+impl From<&[Hint]> for Hints {
+    fn from(value: &[Hint]) -> Self {
+        Self(value.to_vec())
     }
 }

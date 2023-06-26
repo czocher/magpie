@@ -24,13 +24,13 @@ trait Notifications {
     fn notify(
         &self,
         app_name: &str,
-        replaces_id: NotificationId,
-        app_icon: ImagePath,
+        replaces_id: &NotificationId,
+        app_icon: &ImagePath,
         summary: &str,
         body: &str,
-        actions: Actions,
-        hints: Hints,
-        timeout: Timeout,
+        actions: &Actions,
+        hints: &Hints,
+        timeout: &Timeout,
     ) -> zbus::Result<NotificationId>;
 
     /// ActionInvoked signal

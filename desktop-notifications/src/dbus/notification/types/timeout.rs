@@ -13,6 +13,22 @@ pub enum Timeout {
     Duration(Duration),
 }
 
+impl From<Duration> for Timeout {
+    fn from(value: Duration) -> Self {
+        Timeout::Duration(value)
+    }
+}
+
+impl From<u32> for Timeout {
+    fn from(value: u32) -> Self {
+        if value == 0 {
+            Timeout::Never
+        } else {
+            Timeout::Duration(Duration::from_millis(value.into()))
+        }
+    }
+}
+
 impl Serialize for Timeout {
     fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
     where

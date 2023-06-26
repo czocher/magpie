@@ -1,4 +1,4 @@
-use derive_more::{Constructor, Deref};
+use derive_more::{Constructor, Deref, DerefMut};
 use zbus::{
     export::serde::Serialize,
     zvariant::{Signature, Type},
@@ -29,11 +29,21 @@ impl Action for &str {
     }
 }
 
-#[derive(Constructor, Deref)]
+#[derive(Constructor, Deref, DerefMut, Clone, Default)]
 pub struct Actions(Vec<String>);
 
 impl<T: Action> From<Vec<T>> for Actions {
     fn from(value: Vec<T>) -> Self {
+        let values = value
+            .iter()
+            .flat_map(|action| vec![action.key(), action.value()])
+            .collect();
+        Self::new(values)
+    }
+}
+
+impl<T: Action> From<&[T]> for Actions {
+    fn from(value: &[T]) -> Self {
         let values = value
             .iter()
             .flat_map(|action| vec![action.key(), action.value()])
